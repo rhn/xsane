@@ -3,7 +3,9 @@
    xsane-save.c
 
    Oliver Rauch <Oliver.Rauch@rauch-domain.de>
+   rhn <gihu.rhn@porcupinefactory.org>
    Copyright (C) 1998-2010 Oliver Rauch
+                 2016 rhn
    This file is part of the XSANE package.
 
    This program is free software; you can redistribute it and/or modify
@@ -4910,7 +4912,7 @@ int xsane_save_png(FILE *outfile, int compression, FILE *imagefile, Image_info *
     return -1; /* error */
   }
 
-  if (setjmp(png_ptr->jmpbuf))
+  if (setjmp(png_jmpbuf(png_ptr)))
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     xsane_back_gtk_error(buf, TRUE);
@@ -5100,7 +5102,7 @@ int xsane_save_png_16(FILE *outfile, int compression, FILE *imagefile, Image_inf
     return -1; /* error */
   }
 
-  if (setjmp(png_ptr->jmpbuf))
+  if (setjmp(png_jmpbuf(png_ptr)))
   {
     snprintf(buf, sizeof(buf), "%s %s", ERR_DURING_SAVE, ERR_LIBPNG);
     xsane_back_gtk_error(buf, TRUE);
